@@ -9,7 +9,8 @@ button.addEventListener("click", () =>{
 })
 
 function onSuccess (position) {
-console.log(position)
+let {latitude, longitude} = position.coords;
+fetch("https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=YOUR-API-KEY")
 }
 
 function onError (error) {
