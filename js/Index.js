@@ -1,23 +1,26 @@
-function getLocation() {
-  const output = document.getElementById('output');
-
-  if (!navigator.geolocation) {
-    output.textContent = "Geolocation is not supported by your browser.";
-    return;
+const button = document.querySelector("button");
+button.addEventListener("click", () =>{
+  if(navigator.geolocation){
+  navigator.geolocation.getCurrentPosition(onSuccess, onError);
   }
+  else{
+    button.innerText = "your browser does not support "
+  }
+})
 
-  output.textContent = "Locating…";
-
-  navigator.geolocation.getCurrentPosition(
-    (position) => {
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-      output.textContent = `Latitude: ${lat}, Longitude: ${lon}`;
-      console.log("Position:", lat, lon);
-    },
-    (error) => {
-      output.textContent = `Error: ${error.message}`;
-      console.error("Geolocation error:", error);
-    }
-  );
+function onSuccess (position) {
+console.log(position)
 }
+
+function onError (error) {
+  if (error.code == 1 ){
+   button.innerText = "You denied access to your location"
+  }
+  else if (error.code == 2 ){
+    button.innerText = "Location not Available"
+  }
+   else {
+   button.innerText = "Something went wrong"
+  }
+button.setAttribute("disabled", "true");
+  }
