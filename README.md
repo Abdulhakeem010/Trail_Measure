@@ -12,4 +12,4 @@ Simply start walking, and **Trail_Measure** will track your route in real-time, 
 - **Save and review your past measurements**.
 - **Export your land measurements** for further use.
 
-**WalkMeasure** makes walking and measuring land as easy as stepping outside!
+**Trail_Measure** makes walking and measuring land as easy as stepping outside!
