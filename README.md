@@ -1,5 +1,4 @@
 # Trail_Measure
-# WalkMeasure
 
 **Trail_Measure** is your go-to tool for measuring distances and tracking paths, whether you’re casually walking, jogging, or surveying land. It’s the perfect companion for everyday users who want to keep track of their steps or monitor their outdoor activities — and it’s equally useful for real estate professionals looking to measure land plots with precision.
 
