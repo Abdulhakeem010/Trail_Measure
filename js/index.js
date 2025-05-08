@@ -92,3 +92,22 @@ function startTracking() {
   }
 }
 
+coords = [];
+totalDistance = 0;
+document.getElementById("total").textContent = "Total Distance: 0 m";
+document.getElementById("straight").textContent = "Straight-Line Distance: 0 m";
+
+watchId = navigator.geolocation.watchPosition(position => {
+  const { latitude, longitude } = position.coords;
+
+  if (coords.length > 0) {
+    const last = coords[coords.length - 1];
+    const dist = calculateDistance(last.lat, last.lon, latitude, longitude);
+
+    if (dist > minMovement) {
+      totalDistance += dist;
+      coords.push({ lat: latitude, lon: longitude });
+
+      // Update total distance on screen
+      document.getElementById("total").textContent =
+        `Total Distance: ${totalDistance.toFixed(2)} m`;
