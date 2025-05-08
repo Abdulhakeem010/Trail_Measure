@@ -58,3 +58,14 @@
 //     watchId = null;
 //   }
 // }
+
+
+
+let watchId;
+let coords = [];
+let totalDistance = 0;
+const minMovement = 5;
+
+function toRad(x) {
+  return x * Math.PI / 180;
+}
