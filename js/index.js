@@ -90,24 +90,50 @@ function startTracking() {
     alert("Geolocation is not supported by your browser.");
     return;
   }
+
+  coords = [];
+  totalDistance = 0;
+  document.getElementById("total").textContent = "Total Distance: 0 m";
+  document.getElementById("straight").textContent = "Straight-Line Distance: 0 m";
+
+  watchId = navigator.geolocation.watchPosition(position => {
+    const { latitude, longitude } = position.coords;
+
+    if (coords.length > 0) {
+      const last = coords[coords.length - 1];
+      const dist = calculateDistance(last.lat, last.lon, latitude, longitude);
+
+      if (dist > minMovement) {
+        totalDistance += dist;
+        coords.push({ lat: latitude, lon: longitude });
+
+        // Update total distance on screen
+        document.getElementById("total").textContent =
+          `Total Distance: ${totalDistance.toFixed(2)} m`;
+
+        // Update straight-line distance
+        const first = coords[0];
+        const straight = calculateDistance(first.lat, first.lon, latitude, longitude);
+        document.getElementById("straight").textContent =
+          `Straight-Line Distance: ${straight.toFixed(2)} m`;
+      }
+
+    } else {
+      coords.push({ lat: latitude, lon: longitude });
+    }
+
+  }, error => {
+    alert("Tracking error: " + error.message);
+  }, {
+    enableHighAccuracy: true,
+    maximumAge: 1000,
+    timeout: 5000
+  });
 }
 
-coords = [];
-totalDistance = 0;
-document.getElementById("total").textContent = "Total Distance: 0 m";
-document.getElementById("straight").textContent = "Straight-Line Distance: 0 m";
-
-watchId = navigator.geolocation.watchPosition(position => {
-  const { latitude, longitude } = position.coords;
-
-  if (coords.length > 0) {
-    const last = coords[coords.length - 1];
-    const dist = calculateDistance(last.lat, last.lon, latitude, longitude);
-
-    if (dist > minMovement) {
-      totalDistance += dist;
-      coords.push({ lat: latitude, lon: longitude });
-
-      // Update total distance on screen
-      document.getElementById("total").textContent =
-        `Total Distance: ${totalDistance.toFixed(2)} m`;
+function stopTracking() {
+  if (watchId) {
+    navigator.geolocation.clearWatch(watchId);
+    watchId = null;
+  }
+}
