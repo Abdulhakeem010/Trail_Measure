@@ -1,4 +1,4 @@
-<!-- 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,87 +17,8 @@
 
   <script src="./js/index.js"></script>
 </body>
-</html> -->
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>User Location</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 2rem;
-    }
-    #location {
-      margin-top: 1rem;
-      font-size: 1.2rem;
-    }
-    #error {
-      color: red;
-      margin-top: 1rem;
-    }
-  </style>
-</head>
-<body>
-
-  <h1>Get Your Exact Location</h1>
-  <button onclick="getUserLocation(displayLocation, showError)">Get Location</button>
-
-  <div id="location"></div>
-  <div id="error"></div>
-
-  <script>
-    function getUserLocation(callback, errorCallback) {
-      if (!navigator.geolocation) {
-        errorCallback('Geolocation is not supported by your browser.');
-        return;
-      }
-
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          callback({ latitude, longitude });
-        },
-        (error) => {
-          switch (error.code) {
-            case error.PERMISSION_DENIED:
-              errorCallback('User denied the request for Geolocation.');
-              break;
-            case error.POSITION_UNAVAILABLE:
-              errorCallback('Location information is unavailable.');
-              break;
-            case error.TIMEOUT:
-              errorCallback('The request to get user location timed out.');
-              break;
-            default:
-              errorCallback('An unknown error occurred.');
-              break;
-          }
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 10000,
-          maximumAge: 0
-        }
-      );
-    }
-
-    function displayLocation(location) {
-      document.getElementById('location').textContent =
-        `Latitude: ${location.latitude}, Longitude: ${location.longitude}`;
-      document.getElementById('error').textContent = '';
-    }
-
-    function showError(error) {
-      document.getElementById('error').textContent = error;
-      document.getElementById('location').textContent = '';
-    }
-  </script>
-
-</body>
 </html>
+
+
 
 
