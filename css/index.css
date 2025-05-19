@@ -1,7 +1,7 @@
 body {
   font-family: Arial, sans-serif;
   padding: 2rem;
-  background-color: #333;
+  background: conic-gradient(cadetblue, gray);
 }
 h1{
   color: skyblue;
